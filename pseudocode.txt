@@ -1,0 +1,28 @@
+Create a factory for the players.
+
+HTML:
+-create board container
+-create play and restart button
+-2 user input for player name
+
+Create IIFE for the main functions :
+
+-gameBoard
+    -create board matrix
+    -render function (handle click in this function)
+        -for each element in board matrix, create div element in board container
+        -select all the cells (childs of div) and add click event with handleClick function (defined in gameController)
+        -return render function
+
+-gameController
+    -bool variable to check if gameOver
+    -gameStart function
+        -calls createPlayer function (takes the value of the user's input)
+        -set current playerIndex
+        -call render function from gameBoard
+        -return start function
+    -handleClick function (event in argument) return event.target (number of cell)
+        -return handleClick function
+
+
+-Trigger gameStart when play button is clicked

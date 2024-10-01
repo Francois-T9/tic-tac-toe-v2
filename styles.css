@@ -1,0 +1,43 @@
+.container {
+    display: grid;
+    grid-template-rows: 1fr 5fr ;
+}
+
+.container .main {
+    display: grid;
+    grid-template-rows: 5fr 1fr 1fr ;
+    gap: 20px;
+}
+
+.container .main .board {
+    grid-row: 1;
+    display: grid;
+    grid-template-rows: repeat(3,100px);
+    grid-template-columns: repeat(3,100px);
+    justify-self: center;
+
+    
+   
+    
+}
+
+.container .main .board >* {
+    width: 100px;
+    height: 100px;
+    border: solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 36px;
+
+}
+    
+
+.container .main .inputs,
+.container .main .buttons
+ {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
