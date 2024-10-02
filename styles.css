@@ -1,25 +1,88 @@
+body {
+    background: linear-gradient(62deg, rgb(21, 213, 235) 0.00%, rgb(255, 0, 191) 100.00%);
+    height: 100%;
+    font-family: "Press Start 2P", system-ui;
+    box-sizing: border-box;
+}
 .container {
     display: grid;
     grid-template-rows: 1fr 5fr ;
 }
 
+.container .header {
+    display: flex;
+    justify-content: center;
+}
+
 .container .main {
     display: grid;
-    grid-template-rows: 5fr 1fr 1fr ;
+    grid-template-rows: 5fr 1fr 1fr 1fr ;
+    grid-template-columns: 1fr 1fr;
     gap: 20px;
 }
 
 .container .main .board {
     grid-row: 1;
     display: grid;
+    grid-column: 2;
     grid-template-rows: repeat(3,100px);
     grid-template-columns: repeat(3,100px);
-    justify-self: center;
-
-    
-   
-    
+    justify-self: center;  
+    box-sizing: border-box;
 }
+
+.container .main .board .cell {
+    box-sizing: border-box;
+}
+
+.container .main .board .cell:empty {
+    cursor: pointer;
+}
+
+.container .main .board .cell:not(:empty) {
+    cursor: not-allowed;
+}
+
+.container .main .board .cell:nth-child(-n+3),
+.container .main .board .cell:nth-child(-n+6)
+ {
+    border-bottom: none;
+}
+
+.container .main .board .cell:nth-child(3n+1),
+.container .main .board .cell:nth-child(3n+2)
+ {
+    border-right: none;
+}
+
+.container .main .board .cell:nth-child(3n+1) {
+    border-left: none;
+}
+.container .main .board .cell:nth-child(-n+3) {
+    border-top: none;
+}
+.container .main .board .cell:nth-child(3n+3) {
+    border-right: none;
+}
+.container .main .board .cell:nth-child(-n+9) {
+    border-bottom: none;
+}
+
+
+
+.container .main .displayMessages {
+    display: grid;
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.container .main .displayMessages h1,
+.container .main .displayMessages h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 
 .container .main .board >* {
     width: 100px;
@@ -39,5 +102,46 @@
  {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    
 }
 
+.container .main .inputs input {
+    border-radius: 20px;
+    width: 150px;
+}
+
+.container .main .inputs input[type=text] {
+    padding-left: 20px;
+    font-family: "Press Start 2P", system-ui;
+    font-size: 12px;
+}
+
+.container .main .buttons button {
+    border-radius: 20px;
+    font-family: "Press Start 2P", system-ui;
+}
+
+.container .main .buttons #play {
+    background-color: green;
+    color: white;
+}
+.container .main .buttons #restart {
+    background-color: red;
+    color: white;
+    
+}
+.container .main .buttons button:hover {
+    cursor: pointer;
+    background-color: black ;
+}
+
+
+.footer {
+    display: flex;
+    padding: 20px;
+    justify-content: center;
+    gap: 50px;
+}
+.footer a>img {
+    width: 50px;
+}
