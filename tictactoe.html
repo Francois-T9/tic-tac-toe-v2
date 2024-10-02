@@ -2,18 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/x-icon" href="img/three-in-a-row.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tic-tac-toe v2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <div class="header"></div>
+        <div class="header">
             <h1>Tic-Tac-Toe</h1>
+        </div>
+            
         <div class="main">
             <div class="board">
 
             </div>
+            <div class="displayMessages">
+                <h1></h1>   
+                <h2></h2>
+            </div>
+
+            
+
 
             <div class="inputs">
                 <input type="text" id="player-one" placeholder="Player 1 name">
@@ -25,6 +37,10 @@
                 <button id="restart">Restart game</button>
 
             </div>
+        </div>
+        <div class="footer">
+            <h3>Learn more about me</h3>
+            <a href="https://github.com/Francois-T9" target="_blank"><img src="img/github.png" alt=""></a>
         </div>
     </div>
     <script src="game.js"></script>
