@@ -2,7 +2,7 @@ const startButton=document.querySelector("#play")
 
 startButton.addEventListener("click", ()=> {
     gameController.startGame();
-}, {once : true});
+});
 
 const resetButton=document.querySelector("#restart")
 
@@ -25,27 +25,37 @@ const gameBoard =(() => {
         }
     }
 
-    const render =() => {
-        const boardElement=document.querySelector(".board");
-
-        let boardHTML="";
-        for(let i=0;i<rows;i++){
-            
-            for (let j=0;j<columns;j++) {
-                index=i*rows+j;
-                boardHTML+=`<div class="cell" id="cell-${index}">${board[i][j]}</div>`;
-               
+    const render = () => {
+        const boardElement = document.querySelector(".board");
+    
+        let boardHTML = "";
+        for (let i = 0; i < rows; i++) {
+            for (let j = 0; j < columns; j++) {
+                const index = i * rows + j;
+                const token = board[i][j];
+    
+                // Add token as a class and let CSS handle the color
+                let tokenClass = "";
+                if (token === players[0].token) {
+                    tokenClass = "player-one"; // Player 1's token class
+                } else if (token === players[1].token) {
+                    tokenClass = "player-two"; // Player 2's token class
+                }
+    
+                // Each cell has a dynamic class based on the token
+                boardHTML += `<div class="cell ${tokenClass}" id="cell-${index}"></div>`;
+            }
         }
-        }
-        boardElement.innerHTML=boardHTML;
-        cells=document.querySelectorAll(".cell");
+        boardElement.innerHTML = boardHTML;
+    
+        // Add event listeners to cells again after rendering
+        const cells = document.querySelectorAll(".cell");
         cells.forEach((cell) => {
-            cell.addEventListener("click",(gameController.handleClick))
-            
+            cell.addEventListener("click", gameController.handleClick);
         });
-        
     }
-
+    
+    
 
     const updateBoard=(row,col,value) => {
         board[row][col]=value;
@@ -70,7 +80,11 @@ const gameBoard =(() => {
     }
 
     
+    // const cellColor (cell) => {
+    //     let colorOne=
 
+    //     return {}
+    // }
     
 
     return {
@@ -95,14 +109,18 @@ const gameController=(() => {
    
   
     const startGame=() => {
-        const player= (name,token) => {
-            return  {name, token};
+        const player= (name,token,className) => {
+            return  {name, token, className};
         };
-        let playerOne=player(document.querySelector("#player-one").value,"X")
-        let playerTwo=player(document.querySelector("#player-two").value,"O")
+
+        
+        
+
+        let playerOne=player(document.querySelector("#player-one").value,"X","player-one-message")
+        let playerTwo=player(document.querySelector("#player-two").value,"O","player-two-message")
         
         players=[playerOne, playerTwo];
-        console.log(players);
+       
         playerIndex=0;
 
         
@@ -111,20 +129,28 @@ const gameController=(() => {
         gameBoard.render();
         
     };
-    const playerDiv=document.querySelector(".displayMessages h1");
-    const winnerDiv=document.querySelector(".displayMessages h2");
+    const playerDiv=document.querySelector(".displayMessages h2");
+    const winnerDiv=document.querySelector(".displayMessages h1");
 
     const resetDisplay =() => {
         playerDiv.textContent="";
         winnerDiv.textContent="";
     }
-    const displayPlayerTurn=(playerName)=> {
-        playerDiv.textContent=`It's ${playerName}'s turn`;
+    const displayPlayerTurn=(player)=> {
+        
+        playerTurnHTML = `<h2 class="${player.className}">It's ${player.name}'s turn</h2>`;
+        playerDiv.innerHTML=playerTurnHTML;
+        console.log(playerDiv);
         
     }
 
     const displayWinner=(playerName)=> {
         winnerDiv.textContent=`${playerName}'s won, congratulations!`;
+        
+    }
+
+    const displayTie=()=> {
+        winnerDiv.textContent=`It's a tie, play again!`;
         
     }
 
@@ -162,7 +188,6 @@ const gameController=(() => {
     const handleClick=(event) => {
 
         
-       
         let numCell=event.target.id.split("-")[1];
         
         let row=Math.floor(numCell/3);
@@ -171,15 +196,18 @@ const gameController=(() => {
         if(gameBoard.getBoard()[row][col]!=="") 
             return;
         gameBoard.updateBoard(row,col,players[playerIndex].token);
-
+        
+        event.target.style.color=players[playerIndex].tokenColor;
+        // console.log(event.target.style.color);
         
         playerIndex=playerIndex===0 ? 1:0;
         
         if(gameBoard.isTie(board)) {
-            alert("It's a tie!")
+            // alert("It's a tie!")
+            displayTie();
         }
-
-        displayPlayerTurn(players[playerIndex].name);
+        
+        displayPlayerTurn(players[playerIndex]);
         
         isWin(board,players[0]);
         isWin(board,players[1]);
