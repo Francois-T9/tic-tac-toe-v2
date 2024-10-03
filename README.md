@@ -8,5 +8,6 @@ Exercise from [_The Odin Project_](https://www.theodinproject.com/lessons/node-p
 🔗[Play Tic-tac-toe](https://raw.githack.com/Francois-T9/tic-tac-toe-v2/main/tictactoe.html)
 
 # Things to be implemented
+-Stop game after a win
 
 
